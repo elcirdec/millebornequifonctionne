@@ -2,7 +2,6 @@ package jeu;
 
 import java.util.*;
 
-import cartes.Borne;
 import cartes.*;
 
 public class Joueur {
@@ -28,6 +27,19 @@ public class Joueur {
 			return carte;
 		}
 
+	}
+	
+	public Carte retirerDeLaMain(Carte carte) {
+		//main.remove(carte);
+		main.jouer(carte);//ca enleve la carte mais pas sur que ce sois ca qui est demander
+		System.out.println("J'enleve de ma main la carte : "+carte);
+		return carte;
+	}
+	
+	public Coup choisirCoup(Set<Joueur> participants) {
+		if(coupsPossibles(participants)) { //pourquoi ca renvoie un coup comment on sairt ca???
+			
+		}
 	}
 	
 	public void donner(Carte carte) {
@@ -58,7 +70,7 @@ public class Joueur {
 		return zoneDeJeu.estBloque();
 	}
 	public int donnerKmParcourus() {
-		zoneDeJeu.donnerKmParcourus();
+		return zoneDeJeu.donnerKmParcourus();
 	}
 
 	public Set<Coup> coupsPossibles(Set<Joueur> participants) {
@@ -83,7 +95,10 @@ public class Joueur {
 		return coups;
 	}
 
-
+	public boolean deposer(Carte c) {
+		return zoneDeJeu.deposer(c);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Joueur) {

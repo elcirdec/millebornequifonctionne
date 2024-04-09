@@ -47,6 +47,34 @@ public class ZoneDeJeu implements Cartes {
 		ensembleBotte.add(botte);
 	}
 
+	public boolean deposer(Carte c) {
+		if(estDepotAutorise(c)) {
+			if(c instanceof Borne ) {
+				Borne b = (Borne) c;
+				deposer(b);
+			}else if(c instanceof Botte ) {
+				Botte b = (Botte) c;
+				deposer(b);
+				Attaque atq = new Attaque(1, b.getType());
+				if(pileBataille.contains(atq)){
+					pileBataille.remove(atq);
+				}
+			}else if(c instanceof DebutLimite ) {
+				DebutLimite b = (DebutLimite) c;
+				deposer(b);
+			}else if(c instanceof FinLimite ) {
+				FinLimite b = (FinLimite) c;
+				deposer(b);
+			}else if(c instanceof Bataille ) {
+				Bataille b = (Bataille) c;
+				deposer(b);
+			}
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 	public int donnerLimitationVitesse() {
 		if(pileLimite.isEmpty() || pileLimite.get((pileLimite.size() - 1)) instanceof FinLimite) {
 			return 200;
@@ -136,7 +164,7 @@ public class ZoneDeJeu implements Cartes {
 				return true;
 			}else {
 				return false;
-				}
+			}
 		}
 
 		return false;
